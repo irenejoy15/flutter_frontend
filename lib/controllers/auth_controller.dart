@@ -22,7 +22,7 @@ class AuthController{
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context){
-              return ConfirmSignUpScreen();
+              return ConfirmSignUpScreen(email: email,);
             }),
           );
         } else {
