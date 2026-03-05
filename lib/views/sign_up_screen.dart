@@ -9,11 +9,34 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  // VALIDATION
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // CONTROLLER
   final AuthController _authController = AuthController();
   late String email;
   late String fullName;
   late String password;
+
+
+  bool _isloading = false;
+  void signUpUsers() async {
+    if(_formKey.currentState!.validate()){
+      setState(() {
+        _isloading = true;
+      });
+      await _authController.signUpUsers(
+          email: email,
+          fullName: fullName,
+          password: password,
+          context: context,
+        );
+      setState(() {
+        _isloading = false;
+      });
+    }else{
+      print('all fields are required');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,16 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             
                 InkWell(
                   onTap: () {
-                    if(_formKey.currentState!.validate()){
-                      _authController.signUpUsers(
-                        email: email,
-                        fullName: fullName,
-                        password: password,
-                        context: context,
-                      );
-                    }else{
-                      print('all fields are required');
-                    }
+                    signUpUsers();
                   },
                   child: Container(
                     width:319,
@@ -111,7 +125,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     child: Center(
-                      child: Text(
+                      child: _isloading? CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ) : Text(
                         'SIGN UP',
                         style: TextStyle(
                           color: Colors.white,
