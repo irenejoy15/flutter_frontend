@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/user.dart';
 import 'package:http/http.dart' as http;
@@ -24,10 +26,14 @@ class AuthController{
             }),
           );
         } else {
-          print('Failed to sign up user: ${response.statusCode}');
+          ScaffoldMessenger.of( context).showSnackBar(
+            SnackBar(content: Text(json.decode(response.body)['detail'])),
+          );
         }
       }catch(e){
-        print('Error signing up user: $e');
+        ScaffoldMessenger.of( context).showSnackBar(
+          SnackBar(content: Text('Error signing up user: $e')),
+        );
       }
   }
 }
