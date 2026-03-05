@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/views/sign_up_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // TRY THIS: Try changing the home property to a different widget here, and then invoke hot reload to see the change in the UI.
+      home: SignUpScreen(),
     );
   }
 }
