@@ -11,7 +11,7 @@ class AuthController{
       required String email, 
       required String fullName,
       required String password,
-      required BuildContext context
+      required context
     }) async {
       try{
         User user = User(email: email, fullName: fullName, password: password);
@@ -42,7 +42,7 @@ class AuthController{
   Future<void> confirmSignUp({
     required String email,
     required String confirmationCode,
-    required BuildContext context
+    required context
   }) async {
     try{
       ConfirmUser confirmUser = ConfirmUser(email: email, confirmationCode: confirmationCode);
