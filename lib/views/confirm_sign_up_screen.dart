@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/controllers/auth_controller.dart';
 
 class ConfirmSignUpScreen extends StatefulWidget {
   final String email;
@@ -9,6 +10,8 @@ class ConfirmSignUpScreen extends StatefulWidget {
 
 class ConfirmSignUpScreenState extends State <ConfirmSignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthController _authController = AuthController();
+  late String confirmationCode;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +43,9 @@ class ConfirmSignUpScreenState extends State <ConfirmSignUpScreen> {
                 ),
                 SizedBox(height: 20,),
                 TextFormField(
+                  onChanged: (value) {
+                    confirmationCode = value;
+                  },
                   validator: (value) => value == null || value.isEmpty ? 'Please enter the OTP' : null,
                   decoration: InputDecoration(
                     labelText: 'ENTER OTP',
@@ -50,7 +56,11 @@ class ConfirmSignUpScreenState extends State <ConfirmSignUpScreen> {
                 InkWell(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      print('Confirming OTP'); // Call your confirmSignUp function here
+                      _authController.confirmSignUp(
+                        email: widget.email, 
+                        confirmationCode: confirmationCode, 
+                        context: context
+                      );
                     }else{
                       print('OTP validation failed');
                     }
