@@ -14,12 +14,27 @@ class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // CONTROLLER
   final AuthController _authController = AuthController();
+  
   late String email;
   late String password;
 
   bool _isloading = false;
-  void signInUser() async {
-    
+  void _signInUser() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isloading = true;
+      });
+      await _authController.signInUser(
+        email: email, 
+        password: password, 
+        context: context
+      );
+      setState(() {
+        _isloading = false;
+      });
+    }else {
+      print('all fields are required');
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -79,7 +94,7 @@ class _SignInScreenState extends State<SignInScreen> {
             
                 InkWell(
                   onTap: () {
-                      signInUser();
+                      _signInUser();
                   },
                   child: Container(
                     width:319,

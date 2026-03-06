@@ -23,7 +23,7 @@ class AuthController{
           body: user.toJson(),
         );
         if (response.statusCode == 200) {
-          Navigator.push(
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (context){
               return ConfirmSignUpScreen(email: email,);
@@ -54,7 +54,7 @@ class AuthController{
         body: confirmUser.toJson(),
       );
       if (response.statusCode == 200) {
-        Navigator.push(
+        await Navigator.push(
             context,
             MaterialPageRoute(builder: (context){
               return SignInScreen();
@@ -85,7 +85,7 @@ class AuthController{
         body: signInUser.toJson(),
       );
       if(response.statusCode == 200){
-        Navigator.push(
+        await Navigator.push(
             context,
             MaterialPageRoute(builder: (context){
               return MainScreen();
