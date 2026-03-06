@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/controllers/auth_controller.dart';
+import 'package:shop_app/views/sign_in_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -137,7 +138,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('ALREADY HAVE AN ACCOUNT?'),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context){
+                            return SignInScreen();
+                          }),
+                        );
+                      }, 
+                      child: Text('SIGN IN')
+                    )
+                  ],
+                ),
               ],
             ),
           ),
