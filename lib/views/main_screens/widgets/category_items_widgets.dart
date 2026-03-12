@@ -39,6 +39,7 @@ class _CategoryItemsWidgetState extends State<CategoryItemsWidget> {
       // NINTH
       return GridView.builder(
         shrinkWrap: true,
+        padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: categories.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
