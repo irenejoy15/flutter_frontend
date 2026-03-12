@@ -65,7 +65,7 @@ class _CategoryItemsWidgetState extends State<CategoryItemsWidget> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.lato(
                   fontSize: screenWidth * 0.035,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                 ), 
                 overflow: TextOverflow.ellipsis
               ),
