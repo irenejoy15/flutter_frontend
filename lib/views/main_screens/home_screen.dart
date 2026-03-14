@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/views/main_screens/widgets/ads_widgets.dart';
+import 'package:shop_app/views/main_screens/widgets/all_products_widgets.dart';
 import 'package:shop_app/views/main_screens/widgets/category_items_widgets.dart';
 import 'package:shop_app/views/main_screens/widgets/header_widget.dart';
 import 'package:shop_app/views/main_screens/widgets/reusable_widgets.dart';
@@ -19,6 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
       AdsWidgets(),
       ReusableWidget(title: 'Categories', subtitle: 'View All'),
       CategoryItemsWidget(),
+      SizedBox(height: 16),
+      ReusableWidget(title: 'Popular Products', subtitle: 'View All'),
+      AllProductWidget(),
     ]),);
   }
 }

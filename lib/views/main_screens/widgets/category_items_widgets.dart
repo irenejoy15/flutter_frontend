@@ -57,7 +57,7 @@ class _CategoryItemsWidgetState extends State<CategoryItemsWidget> {
             children: [
               Image.network(
                 category.imageUrl, 
-                width: screenWidth * 0.15, 
+                width: MediaQuery.of(context).size.width * 0.12, 
                 height: screenWidth * 0.15
               ),
               Text(

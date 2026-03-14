@@ -35,7 +35,7 @@ class ProductModel {
       id: map['id'] as String,
       productName: map['productName'] as String,
       category: map['category'] as String,
-      productPrice: map['productPrice'] as double,
+      productPrice: (map['productPrice'] as num).toDouble(),
       imageUrl: map['imageUrl'] as String,
       description: map['description'] as String,
       quantity: map['quantity'] as int,
