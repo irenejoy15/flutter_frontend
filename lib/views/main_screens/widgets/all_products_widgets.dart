@@ -33,7 +33,7 @@ class _AllProductWidgetState extends State<AllProductWidget> {
 
         final products = snapshot.data;
         return SizedBox(
-          height: 120,
+          height: MediaQuery.of(context).size.height * 0.1,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: products!.length,
