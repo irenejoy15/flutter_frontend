@@ -62,6 +62,37 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         ),
         ),
       )),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: size.width,
+              height: size.height * 0.06,
+              color: Color(0xFFD7DDFF),
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.02),
+              child: Row(
+                children: [
+                  Container(
+                    width: size.width * 0.02,
+                    height: size.height * 0.02,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(4)
+                    ),
+                  ),
+                  SizedBox(width: size.width * 0.03),
+                  Text("YOu Have 12 Items",style: GoogleFonts.poppins(
+                    fontSize: 16, 
+                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF212121)
+                  ),)
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
