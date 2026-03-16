@@ -20,3 +20,7 @@ class CartNotifier extends Notifier<Map<String, CartModel>>{
     state = newState;
   }
 }
+
+final cartProvider = NotifierProvider<CartNotifier, Map<String, CartModel>>(
+  CartNotifier.new,
+);
