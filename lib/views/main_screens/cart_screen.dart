@@ -186,7 +186,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                    child: Text('Total: \$${cartData.values.fold(0, (total, item) => total + item.productPrice.toInt() * item.quantity).toStringAsFixed(2)}', 
+                    child: Text('Total: \$${ref.watch(cartProvider.notifier).totalPrice.toStringAsFixed(2)}', 
                       style: GoogleFonts.poppins(
                         fontSize: 16, 
                         fontWeight: FontWeight.w600,
