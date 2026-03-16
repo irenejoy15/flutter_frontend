@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/provider/cart_notifier.dart';
+import 'package:shop_app/views/main_screens/details/checkout_screen.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key});
@@ -194,17 +195,25 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       ),),
                   ),
                   Padding(padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.01),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF212121),
-                        borderRadius: BorderRadius.circular(4)
-                      ),
-                      child: Row(
-                        children: [
-                          Text('Checkout', style: GoogleFonts.poppins(fontSize: size.width * 0.04, color: Colors.white)),
-                          Icon(Icons.arrow_forward_ios, color: Colors.white, size: size.width * 0.04)
-                        ],
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.01),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF212121),
+                          borderRadius: BorderRadius.circular(4)
+                        ),
+                        child: Row(
+                          children: [
+                            Text('Checkout', style: GoogleFonts.poppins(fontSize: size.width * 0.04, color: Colors.white)),
+                            Icon(Icons.arrow_forward_ios, color: Colors.white, size: size.width * 0.04)
+                          ],
+                        ),
                       ),
                     ),
                   )
