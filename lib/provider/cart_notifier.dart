@@ -8,10 +8,14 @@ class CartNotifier extends Notifier<Map<String, CartModel>>{
   }
 
   void addProduct(CartModel model) {
-    state = {
-      ...state,
-      model.id: model,
-    };
+    if (state.containsKey(model.id)) {
+      incrementQuantity(model.id);
+    } else {
+      state = {
+        ...state,
+        model.id: model,
+      };
+    }
   }
 
   void removeProduct(String id) {
@@ -35,6 +39,28 @@ class CartNotifier extends Notifier<Map<String, CartModel>>{
           quantity: item.quantity + 1,
         ),
       };
+    }
+  }
+
+  void decrementQuantity(String id) {
+    if (state.containsKey(id)) {
+      final item = state[id]!;
+      if (item.quantity > 1) {
+        state = {
+          ...state,
+          id: CartModel(
+            id: item.id,
+            productName: item.productName,
+            category: item.category,
+            productPrice: item.productPrice,
+            imageUrl: item.imageUrl,
+            description: item.description,
+            quantity: item.quantity - 1,
+          ),
+        };
+      } else {
+        removeProduct(id);
+      }
     }
   }
 }

@@ -132,7 +132,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                    
+                                      _cartProvider.decrementQuantity(item.id);
                                     },
                                     child: Icon(CupertinoIcons.minus, color: Colors.white, size: 16),
                                   ),
