@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final cartData = ref.watch(cartProvider);
+    final _cartProvider = ref.read(cartProvider.notifier);
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.fromHeight(size.height * 0.18), child: Container(
         width: size.width,
@@ -117,7 +119,33 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                           children: [
                             Text(item.category, style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFF212121))),
                             Text('Price: \$${item.productPrice.toStringAsFixed(2)}', style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFF212121))),
-                            Text('Quantity: ${item.quantity}', style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFF212121))),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: size.width * 0.02, vertical: size.height * 0.005),
+                              width: size.width * 0.3,
+                              height: size.height * 0.03,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 229, 184, 233),
+                                borderRadius: BorderRadius.circular(4)
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                    
+                                    },
+                                    child: Icon(CupertinoIcons.minus, color: Colors.white, size: 16),
+                                  ),
+                                  Text(item.quantity.toString(), style: GoogleFonts.poppins(fontSize: 14, color: Colors.white)),
+                                  InkWell(
+                                    onTap: () {
+                                      _cartProvider.incrementQuantity(item.id);
+                                    },
+                                    child: Icon(CupertinoIcons.plus, color: Colors.white, size: 16),
+                                  )
+                                ],
+                              ),
+                            )
                           ],
                         )
                       ),

@@ -19,6 +19,24 @@ class CartNotifier extends Notifier<Map<String, CartModel>>{
     newState.remove(id);
     state = newState;
   }
+
+  void incrementQuantity(String id) {
+    if (state.containsKey(id)) {
+      final item = state[id]!;
+      state = {
+        ...state,
+        id: CartModel(
+          id: item.id,
+          productName: item.productName,
+          category: item.category,
+          productPrice: item.productPrice,
+          imageUrl: item.imageUrl,
+          description: item.description,
+          quantity: item.quantity + 1,
+        ),
+      };
+    }
+  }
 }
 
 final cartProvider = NotifierProvider<CartNotifier, Map<String, CartModel>>(
