@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/product_model.dart';
+import 'package:shop_app/provider/cart_notifier.dart';
 
-class ProductDetailScreen extends StatefulWidget {
+class ProductDetailScreen extends ConsumerStatefulWidget {
   final ProductModel product;
   const ProductDetailScreen({super.key, required this.product});
 
   @override
-  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+  ConsumerState<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
-class _ProductDetailScreenState extends State<ProductDetailScreen> {
+class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,23 +106,34 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: 50,
-          child: ElevatedButton(
-            onPressed: () {
-              // Add to cart functionality
+          child: InkWell(
+            onTap: () {
+              ref.read(cartProvider.notifier).addProduct(
+                CartModel(
+                  id: widget.product.id,
+                  productName: widget.product.productName,
+                  category: widget.product.category,
+                  productPrice: widget.product.productPrice,
+                  imageUrl: widget.product.imageUrl,
+                  description: widget.product.description,
+                  quantity: 1, // Default quantity to 1 when adding to cart
+                )
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Product added to cart!')),
+              );
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF6200EE),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+            child: Center(
+              child: Text(
+                'ADD TO CART',
+                style: GoogleFonts.poppins(
+                  fontSize: 16, 
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-            child: Text(
-              'ADD TO CART',
-              style: GoogleFonts.poppins(
-                fontSize: 16, 
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-            ),),
           ),
         )
       ),
