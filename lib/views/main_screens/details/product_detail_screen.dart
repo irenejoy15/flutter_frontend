@@ -106,6 +106,10 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: 50,
+          decoration: BoxDecoration(
+            color: Color(0xFF212121),
+            borderRadius: BorderRadius.circular(8)
+          ),
           child: InkWell(
             onTap: () {
               ref.read(cartProvider.notifier).addProduct(
