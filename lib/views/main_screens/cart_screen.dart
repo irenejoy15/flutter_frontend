@@ -162,6 +162,58 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: SizedBox(
+        width: size.width,
+        height: size.height * 0.08,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: size.width * 0.9,
+                height: size.height * 0.06,
+                decoration: BoxDecoration(
+                  color: Color(0xFF212121),
+                  border: Border.all(color: Color(0xFF212121)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+                    child: Text('Total: \$${cartData.values.fold(0, (total, item) => total + item.productPrice.toInt() * item.quantity).toStringAsFixed(2)}', 
+                      style: GoogleFonts.poppins(
+                        fontSize: 16, 
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white
+                      ),),
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.01),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF212121),
+                        borderRadius: BorderRadius.circular(4)
+                      ),
+                      child: Row(
+                        children: [
+                          Text('Checkout', style: GoogleFonts.poppins(fontSize: size.width * 0.04, color: Colors.white)),
+                          Icon(Icons.arrow_forward_ios, color: Colors.white, size: size.width * 0.04)
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
