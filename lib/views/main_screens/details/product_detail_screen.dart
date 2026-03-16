@@ -60,9 +60,68 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       color: Color.fromARGB(255, 197, 60, 239),
                   ),),
               ],),
-            )
+            ),
+            SizedBox(height: 8),
+            Padding(padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  widget.product.category,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14, 
+                    fontWeight: FontWeight.w700,
+                    color: Color.fromARGB(255, 136, 136, 136),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            Padding(padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'About this product',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16, 
+                        letterSpacing: 1.7,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF212121),
+                    ),),
+                    SizedBox(height: 8),
+                    Text(
+                      widget.product.description,
+                      style: GoogleFonts.poppins(
+                        fontSize: 14, 
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF424242),
+                    ),),
+                  ],
+                ),
+              ),
           ],
         ),
+      ),
+      bottomSheet: Padding(padding: EdgeInsets.all(8.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () {
+              // Add to cart functionality
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFF6200EE),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Text(
+              'ADD TO CART',
+              style: GoogleFonts.poppins(
+                fontSize: 16, 
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+            ),),
+          ),
+        )
       ),
     );
   }
