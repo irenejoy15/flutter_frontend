@@ -92,6 +92,45 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 ],
               ),
             ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: cartData.length,
+                itemBuilder: (context, index) {
+                 final item = cartData.values.toList()[index];
+                 return Card(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.05, 
+                      vertical: size.height * 0.01
+                    ),
+                    child: ListTile(
+                      leading: Image.network(item.imageUrl, width: 50, height: 50, fit: BoxFit.cover),
+                      title: Text(item.productName, style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600)),
+                      subtitle: Container(
+                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.02, vertical: size.height * 0.005),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFD7DDFF),
+                          borderRadius: BorderRadius.circular(4)
+                        ),
+                        child:Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(item.category, style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFF212121))),
+                            Text('Price: \$${item.productPrice.toStringAsFixed(2)}', style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFF212121))),
+                            Text('Quantity: ${item.quantity}', style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFF212121))),
+                          ],
+                        )
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete_outline, color: Colors.red),
+                        onPressed: () {
+                          ref.read(cartProvider.notifier).removeProduct(item.id);
+                        },
+                      ),
+                    ),
+                 );
+                },
+              )
           ],
         ),
       ),
