@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_app/provider/cart_notifier.dart';
 
-class CheckoutScreen extends StatefulWidget {
+class CheckoutScreen extends ConsumerStatefulWidget {
   const CheckoutScreen({super.key});
 
   @override
-  State<CheckoutScreen> createState() => _CheckoutScreenState();
+  ConsumerState<CheckoutScreen> createState() => _CheckoutScreenState();
 }
 
-class _CheckoutScreenState extends State<CheckoutScreen> {
+class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
+
+    final cartData = ref.watch(cartProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text('Checkout'),
@@ -77,10 +81,65 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: height * 0.02),
+            Text('Your Items', style: GoogleFonts.lato(
+              fontSize: width * 0.04, 
+              fontWeight: FontWeight.bold,
+              color: Colors.black87
+            ),),
+            SizedBox(height: height * 0.01),
+            Expanded(child: ListView.builder(
+              itemBuilder: (context, index) {
+                final item = cartData.values.toList()[index];
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: height * 0.005),
+                  padding: EdgeInsets.all(width * 0.04),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey.shade300),
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: ListTile(
+                    leading: Image.network(item.imageUrl, width: 50, height: 50, fit: BoxFit.cover),
+                    title: Text(item.productName, style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600)),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Quantity: ${item.quantity}', style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey.shade600)),
+                        Text('Price: \$${(item.productPrice * item.quantity).toStringAsFixed(2)}', style: GoogleFonts.poppins(fontSize: 14, color: const Color.fromARGB(255, 255, 0, 0))),
+                      ],
+                    ),
+                  ),
+                );
+              },
+              itemCount: cartData.length)
+            ),
           ],
         ),
       ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: height * 0.015),
+        child: ElevatedButton(
+          onPressed: () {
+            // Handle checkout action
+          },
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(vertical: height * 0.02),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            backgroundColor: Colors.deepPurpleAccent,
+          ),
+          child: Text('Proceed to Payment', style: GoogleFonts.poppins(fontSize: width * 0.045, fontWeight: FontWeight.bold, color: Colors.white )),
+        ),
       ),
     );
   }
