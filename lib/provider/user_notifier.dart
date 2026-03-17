@@ -1,19 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_app/models/user_details_model.dart';
 
-class UserNotifier extends Notifier<UserDetailsModel>{
+class UserNotifier extends Notifier<UserDetailsModel?>{
   @override
   
-  UserDetailsModel build() {
-    return UserDetailsModel(fullName: '', email: '', userId: '', state: '', city: '', locality: '', idToken: '');
+  UserDetailsModel? build() {
+    return null;
   }
 
-  void setUserDetails(UserDetailsModel user) {
+  void setUser(UserDetailsModel user) {
     state = user;
   }
 
 }
 
-final userProvider = NotifierProvider<UserNotifier, UserDetailsModel?>((){
+final userProvider = NotifierProvider<UserNotifier, UserDetailsModel?>(() {
   return UserNotifier();
 });

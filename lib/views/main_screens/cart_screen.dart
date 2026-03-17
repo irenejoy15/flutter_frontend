@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/provider/cart_notifier.dart';
+import 'package:shop_app/provider/user_notifier.dart';
 import 'package:shop_app/views/main_screens/details/checkout_screen.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
@@ -18,6 +19,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final size = MediaQuery.of(context).size;
     final cartData = ref.watch(cartProvider);
     final _cartProvider = ref.read(cartProvider.notifier);
+    final fullName = ref.read(userProvider)?.fullName ?? 'Guest';
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.fromHeight(size.height * 0.18), child: Container(
         width: size.width,
@@ -35,7 +37,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('My Cart',style: GoogleFonts.poppins(
+            Text(fullName,style: GoogleFonts.poppins(
               fontSize: 22, 
               fontWeight: FontWeight.w600,
               color: Colors.white

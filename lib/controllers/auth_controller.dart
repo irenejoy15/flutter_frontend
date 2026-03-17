@@ -100,8 +100,7 @@ class AuthController{
           locality: data['locality'],
           idToken: data['tokens']['IdToken'],
         );
-        ref.read(userProvider.notifier).setUserDetails(user);
-        // END STEP 6
+        ref.read(userProvider.notifier).setUser(user);
         await Navigator.push(
             context,
             MaterialPageRoute(builder: (context){
@@ -110,7 +109,7 @@ class AuthController{
           );
       }else{
         ScaffoldMessenger.of( context).showSnackBar(
-          SnackBar(content: Text(json.decode(response.body)['details'])),
+          SnackBar(content: Text('IRENE${json.decode(response.body)['details']}')),
         );
       }
     }catch(e){
