@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_app/controllers/auth_controller.dart';
 
 import 'sign_up_screen.dart';
 
-class SignInScreen extends StatefulWidget {
+class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  ConsumerState<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInScreenState extends ConsumerState<SignInScreen> {
   // VALIDATION
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // CONTROLLER
@@ -27,7 +28,8 @@ class _SignInScreenState extends State<SignInScreen> {
       await _authController.signInUser(
         email: email, 
         password: password, 
-        context: context
+        context: context,
+        ref: ref
       );
       setState(() {
         _isloading = false;

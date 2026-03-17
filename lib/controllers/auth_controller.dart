@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_app/models/confrim_user.dart';
 import 'package:shop_app/models/sign_in_user.dart';
 import 'package:shop_app/models/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop_app/models/user_details_model.dart';
+import 'package:shop_app/provider/user_notifier.dart';
 import 'package:shop_app/views/confirm_sign_up_screen.dart';
 import 'package:shop_app/views/main_screens/main_screen.dart';
 import 'package:shop_app/views/sign_in_screen.dart';
@@ -75,7 +78,8 @@ class AuthController{
   Future <void> signInUser({
     required String email,
     required String password,
-    required context
+    required context,
+    required WidgetRef ref
   }) async {
     try{
       SignInUser signInUser = SignInUser(email: email, password: password);
@@ -85,6 +89,19 @@ class AuthController{
         body: signInUser.toJson(),
       );
       if(response.statusCode == 200){
+        // STEP 6
+        final data = jsonDecode(response.body);
+        final user = UserDetailsModel(
+          fullName: data['fullName'], 
+          email: data['email'], 
+          userId: data['userId'], 
+          state: data['state'], 
+          city: data['city'], 
+          locality: data['locality'],
+          idToken: data['tokens']['IdToken'],
+        );
+        ref.read(userProvider.notifier).setUserDetails(user);
+        // END STEP 6
         await Navigator.push(
             context,
             MaterialPageRoute(builder: (context){

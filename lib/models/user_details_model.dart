@@ -5,13 +5,8 @@ class UserDetailsModel {
   final String state;
   final String city;
   final String locality;
+  final String idToken;
 
-  UserDetailsModel({
-    required this.fullName,
-    required this.email,
-    required this.userId,
-    required this.state,
-    required this.city,
-    required this.locality,
-  });
+  UserDetailsModel({required this.fullName, required this.email, required this.userId, required this.state, required this.city, required this.locality, required this.idToken});
+
 }

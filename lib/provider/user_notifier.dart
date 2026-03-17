@@ -5,7 +5,7 @@ class UserNotifier extends Notifier<UserDetailsModel>{
   @override
   
   UserDetailsModel build() {
-    return UserDetailsModel(fullName: '', email: '', userId: '', state: '', city: '', locality: '');
+    return UserDetailsModel(fullName: '', email: '', userId: '', state: '', city: '', locality: '', idToken: '');
   }
 
   void setUserDetails(UserDetailsModel user) {
