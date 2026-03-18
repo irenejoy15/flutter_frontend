@@ -3,19 +3,17 @@ import 'dart:convert';
 
 class OrderModel {
   final String id;
-  final String productId;
   final int quantity;
   final String fullName;
   final String productName;
   final double productPrice;
   final String email;
 
-  OrderModel({required this.id, required this.productId, required this.quantity, required this.fullName, required this.productName, required this.productPrice, required this.email});
+  OrderModel({required this.id, required this.quantity, required this.fullName, required this.productName, required this.productPrice, required this.email});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'productId': productId,
       'quantity': quantity,
       'fullName': fullName,
       'productName': productName,
@@ -27,7 +25,6 @@ class OrderModel {
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
       id: map['id'] as String,
-      productId: map['productId'] as String,
       quantity: map['quantity'] as int,
       fullName: map['fullName'] as String,
       productName: map['productName'] as String,

@@ -67,6 +67,9 @@ class CartNotifier extends Notifier<Map<String, CartModel>>{
   double get totalPrice {
     return state.values.fold(0, (total, item) => total + (item.productPrice * item.quantity));
   }
+  // STEP 8: Add a getter to retrieve the current cart items
+  Map<String, CartModel> get getCartItems => state;
+  // END STEP 8: Add a method to clear the cart after placing an order
 }
 
 final cartProvider = NotifierProvider<CartNotifier, Map<String, CartModel>>(

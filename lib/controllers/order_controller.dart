@@ -10,7 +10,6 @@ class OrderController {
   Future<void> placeOrder(
     {
       required String id,
-      required String productId,
       required int quantity,
       required String fullName,
       required String productName,
@@ -22,7 +21,6 @@ class OrderController {
       final idToken = ref.read(userProvider)!.idToken;
       final OrderModel orderModel = OrderModel(
         id: id,
-        productId: productId,
         quantity: quantity,
         fullName: fullName,
         productName: productName,
@@ -34,13 +32,13 @@ class OrderController {
         http.Response response = await http.post(
           Uri.parse('https://f222umkrdg.execute-api.us-east-1.amazonaws.com/place-order'),
           headers: <String, String>{
-            'Content-Type': 'application/json: charset=UTF-8',
+            'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': 'Bearer $idToken',
           },
           body: orderModel.toJson(),
         );
 
-        if(response.statusCode == 200){
+        if(response.statusCode == 201){
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Order placed successfully!')),
           );

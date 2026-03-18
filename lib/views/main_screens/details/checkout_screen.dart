@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_app/controllers/order_controller.dart';
 import 'package:shop_app/provider/cart_notifier.dart';
+import 'package:shop_app/provider/user_notifier.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
   const CheckoutScreen({super.key});
@@ -11,6 +13,7 @@ class CheckoutScreen extends ConsumerStatefulWidget {
 }
 
 class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
+  final OrderController _orderController = OrderController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -18,6 +21,8 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
     final height = size.height;
 
     final cartData = ref.watch(cartProvider);
+    final _cartProvider = ref.read(cartProvider.notifier);
+    final user = ref.read(userProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text('Checkout'),
@@ -130,8 +135,21 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: height * 0.015),
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             // Handle checkout action
+            await Future.forEach(_cartProvider.getCartItems.entries, (entry){
+              final item = entry.value;
+               _orderController.placeOrder(
+                id: item.id,
+                quantity: item.quantity,
+                fullName: user!.fullName, // Replace with actual user data
+                productName: item.productName,
+                productPrice: item.productPrice,
+                email: user.email, // Replace with actual user data
+                ref: ref,
+                context: context, 
+               );
+            });
           },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(vertical: height * 0.02),
