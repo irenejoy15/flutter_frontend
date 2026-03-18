@@ -54,7 +54,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       shape: BoxShape.circle,
                     ),
                     child: Text(
-                      '3', // Example cart item count
+                      cartData.length.toString(), // Example cart item count
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: Colors.white,
