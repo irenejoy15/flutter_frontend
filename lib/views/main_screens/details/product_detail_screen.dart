@@ -16,6 +16,10 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    // STEP 8
+    final cartData = ref.watch(cartProvider);
+    final isInCart = cartData.containsKey(widget.product.id);
+    // END STEP 8
     return Scaffold(
       appBar: AppBar(
         title: Text('Product Detail',style: GoogleFonts.poppins(
@@ -107,11 +111,11 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           width: MediaQuery.of(context).size.width,
           height: 50,
           decoration: BoxDecoration(
-            color: Color(0xFF212121),
+            color: isInCart ? Colors.grey : Color(0xFF212121),
             borderRadius: BorderRadius.circular(8)
           ),
           child: InkWell(
-            onTap: () {
+            onTap: isInCart ? null : () {
               ref.read(cartProvider.notifier).addProduct(
                 CartModel(
                   id: widget.product.id,

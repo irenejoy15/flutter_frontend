@@ -198,7 +198,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   ),
                   Padding(padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
                     child: InkWell(
-                      onTap: () {
+                      onTap: cartData.isEmpty ? null : () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => CheckoutScreen()),
@@ -207,7 +207,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.01),
                         decoration: BoxDecoration(
-                          color: Color(0xFF212121),
+                          color: cartData.isEmpty ? Colors.grey : Color(0xFF212121),
                           borderRadius: BorderRadius.circular(4)
                         ),
                         child: Row(
