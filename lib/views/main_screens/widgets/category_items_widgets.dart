@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/controllers/category_controller.dart';
 import 'package:shop_app/models/category_model.dart';
 import 'package:shop_app/provider/category_notifier.dart';
+import 'package:shop_app/views/main_screens/details/product_by_category_screen.dart';
 
 class CategoryItemsWidget extends ConsumerStatefulWidget {
   const CategoryItemsWidget({super.key});
@@ -49,24 +50,35 @@ class _CategoryItemsWidgetState extends ConsumerState<CategoryItemsWidget> {
           // TENTH
           final category = categories[index];
           // ELEVENTH
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.network(
-                category.imageUrl, 
-                width: MediaQuery.of(context).size.width * 0.12, 
-                height: screenWidth * 0.15
-              ),
-              Text(
-                category.categoryName, 
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lato(
-                  fontSize: screenWidth * 0.035,
-                  fontWeight: FontWeight.bold,
-                ), 
-                overflow: TextOverflow.ellipsis
-              ),
-            ],
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductByCategoryScreen(category: category.categoryName),
+                ),
+              );
+            },
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.network(
+                  category.imageUrl, 
+                  width: MediaQuery.of(context).size.width * 0.12, 
+                  height: screenWidth * 0.15
+                ),
+                Text(
+                  category.categoryName, 
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.lato(
+                    fontSize: screenWidth * 0.035,
+                    fontWeight: FontWeight.bold,
+                  ), 
+                  overflow: TextOverflow.ellipsis
+                ),
+              ],
+            ),
           );
         }
       );
