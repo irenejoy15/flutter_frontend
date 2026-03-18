@@ -1,43 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/controllers/category_controller.dart';
 import 'package:shop_app/models/category_model.dart';
+import 'package:shop_app/provider/category_notifier.dart';
 
-class CategoryItemsWidget extends StatefulWidget {
+class CategoryItemsWidget extends ConsumerStatefulWidget {
   const CategoryItemsWidget({super.key});
 
   @override
-  State<CategoryItemsWidget> createState() => _CategoryItemsWidgetState();
+  ConsumerState<CategoryItemsWidget> createState() => _CategoryItemsWidgetState();
 }
 
-class _CategoryItemsWidgetState extends State<CategoryItemsWidget> {
+class _CategoryItemsWidgetState extends ConsumerState<CategoryItemsWidget> {
   // FIRST 
   late Future<List<CategoryModel>> _categoriesFuture;
   @override
   // SECOND
   void initState() {
     super.initState();
-    _categoriesFuture = CategoryController().fetchCategories();
+    CategoryController().fetchCategories().then((categories){
+      ref.read(categoryProvider.notifier).setCategory(categories);
+    });
   }
   Widget build(BuildContext context) {
     // THIRD
     final screenWidth = MediaQuery.of(context).size.width;
     //FORTH
-    return FutureBuilder(future: _categoriesFuture,builder: (context,snapshot){
-      // FIFTH
-      if(snapshot.connectionState == ConnectionState.waiting){
-        //SIXTH
-        return const Center(child: CircularProgressIndicator());
-      }
-      // SEVENTH
-      if(snapshot.hasError){
-        return Center(child: Text('Error: ${snapshot.error}'));
-      }
-
-      // EIGHTH
-      final categories = snapshot.data!;
-      // NINTH
-      return GridView.builder(
+    final categories = ref.watch(categoryProvider);
+    if(categories.isEmpty){
+      return SizedBox(
+        height: screenWidth * 0.4,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+    return GridView.builder(
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
@@ -73,6 +70,5 @@ class _CategoryItemsWidgetState extends State<CategoryItemsWidget> {
           );
         }
       );
-    });
   }
 }
